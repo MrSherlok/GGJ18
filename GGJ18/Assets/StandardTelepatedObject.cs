@@ -6,10 +6,10 @@ public class StandardTelepatedObject : TelepatedObject {
 
     private float moveH;
 
-    private void Start()
-    {
-        StartTransmission();
-    }
+    float movingTime;
+
+    [SerializeField]
+    GameObject pl1;
 
 
     public override void Move()
@@ -18,7 +18,11 @@ public class StandardTelepatedObject : TelepatedObject {
         {
             if (Input.GetAxis("J1_L_J_X_Axise") != 0)
             {
-                transform.Translate(Vector2.right * 0.01f);
+                transform.Translate(Vector2.up * Input.GetAxis("J1_L_J_X_Axise")/10*-1);
+            }
+            if (Input.GetAxis("J1_L_J_Y_Axise") != 0)
+            {
+                transform.Translate(Vector2.right * Input.GetAxis("J1_L_J_Y_Axise") / 10*-1);
             }
         }
     }
@@ -30,16 +34,14 @@ public class StandardTelepatedObject : TelepatedObject {
             Move();
             Rotate();
             Use();
+            movingTime += Time.deltaTime;
+            if (movingTime >= 5)
+                StopTransmission();
             yield return null;
         }
     }
 
-    //private void Update()
-    //{
-    //    Move();
-    //    Rotate();
-    //    Use();
-    //}
+
 
     public override void Rotate()
     {
@@ -62,6 +64,8 @@ public class StandardTelepatedObject : TelepatedObject {
 
     public override void StopTransmission()
     {
+        movingTime = 0;
+        pl1.GetComponent<Joystick>().enabled = true;
         isOnTelepatingMode = false;
     }
 

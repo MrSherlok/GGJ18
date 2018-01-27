@@ -26,17 +26,15 @@ public class Joystick : MonoBehaviour {
     float superShotTimer = 0;
 
 
-
-    [SerializeField]
+    
     KeyCode Jump;
-    [SerializeField]
     KeyCode Fire;
-    [SerializeField]
     KeyCode SuperFire;
-    [SerializeField]
     KeyCode StartB;
 
 
+    [SerializeField]
+    private bool isGraunded = false;
 
     private void Awake()
     {
@@ -54,20 +52,30 @@ public class Joystick : MonoBehaviour {
         rb = gameObject.GetComponent<Rigidbody>();
         superShotTimer = 0;
 
-        Debug.Log(PlayerPrefs.GetString("Joystick1Jump"));
-        Debug.Log(PlayerPrefs.GetString("Joystick1Fire"));
-        Debug.Log(PlayerPrefs.GetString("Joystick1SuperFire"));
-        Debug.Log(PlayerPrefs.GetString("Joystick2Jump"));
-        Debug.Log(PlayerPrefs.GetString("Joystick2Fire"));
-        Debug.Log(PlayerPrefs.GetString("Joystick2SuperFire"));
+        //Debug.Log(PlayerPrefs.GetString("Joystick1Jump"));
+        //Debug.Log(PlayerPrefs.GetString("Joystick1Fire"));
+        //Debug.Log(PlayerPrefs.GetString("Joystick1SuperFire"));
+        //Debug.Log(PlayerPrefs.GetString("Joystick2Jump"));
+        //Debug.Log(PlayerPrefs.GetString("Joystick2Fire"));
+        //Debug.Log(PlayerPrefs.GetString("Joystick2SuperFire"));
 
     }
 	
 	// Update is called once per frame
 	void Update () {
 
+        Debug.Log(rb.velocity.y);
 
-        superShotTimer += Time.deltaTime;
+        if (rb.velocity.y >= 1.1f || rb.velocity.y <= -1.1f)
+        {
+            isGraunded = false;
+        } else
+        {
+            isGraunded = true;
+        }
+
+
+        //superShotTimer += Time.deltaTime;
 
         if (rb.velocity.x > 40)
         {
@@ -102,7 +110,7 @@ public class Joystick : MonoBehaviour {
             //{
             //    Debug.Log(2);
             //}
-            if (Input.GetKeyDown(Jump))
+            if (Input.GetKeyDown(Jump) && isGraunded)
             {
                 movement = new Vector2(0, 1);
                 rb.AddForce(movement * jumpSpeed);

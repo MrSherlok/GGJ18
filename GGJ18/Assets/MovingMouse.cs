@@ -10,9 +10,9 @@ public class MovingMouse : MonoBehaviour {
     [SerializeField]
     //GameObject mouse1;
 
-    private bool mouseModeJ1 = false;
+    public bool mouseModeJ1 = false;
     private bool mouseModeJ2 = false;
-    private float speedKoef = 0.007f;
+    private float speedKoef = 0.7f;
 
     private void Update()
     {
@@ -20,6 +20,15 @@ public class MovingMouse : MonoBehaviour {
         {
             mouseModeJ1 = !mouseModeJ1;
             mouse.SetActive(mouseModeJ1);
+            gameObject.GetComponent<Joystick>().enabled = !gameObject.GetComponent<Joystick>().enabled;
+            if (mouseModeJ1)
+            {
+                mouse.transform.position = new Vector3(transform.position.x, transform.position.y, -5);
+                Time.timeScale = 0.1f;
+            } else
+            {
+                Time.timeScale = 1f;
+            }
             Debug.Log(mouseModeJ1);
         }
         if (mouseModeJ1)

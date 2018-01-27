@@ -245,6 +245,7 @@
     <Compile Include="Assets\CreateHero.cs" />
     <Compile Include="Assets\Joystick.cs" />
     <Compile Include="Assets\Joystick2.cs" />
+    <Compile Include="Assets\MouseChoose.cs" />
     <Compile Include="Assets\MovingMouse.cs" />
     <Compile Include="Assets\StandardTelepatedObject.cs" />
     <Compile Include="Assets\TelepatedObject.cs" />
