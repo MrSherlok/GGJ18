@@ -4,11 +4,23 @@ using UnityEngine;
 
 public class StandardTelepatedObject : TelepatedObject {
 
+    private float moveH;
+
     public override void Move()
     {
         if (isMoveable)
         {
-            //Тут как будто в апдейте проверяешь на нажатия <^v> и двигаешь объект          
+            if (Input.GetAxis("J1_L_J_X_Axise") != 0)
+            {
+                moveH = Input.GetAxis("J1_L_J_X_Axise");
+                if (moveH < 0)
+                    gameObject.transform.rotation = new Quaternion(0, 180, 0, 0);
+                if (moveH >= 0)
+                    gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
+                transform.Translate(Vector2.right * 0.01f);
+                //rb.AddForce(movement * speed);
+                //Debug.Log("MainX = " + moveH);
+            }
         }
     }
 
