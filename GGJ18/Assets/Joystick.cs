@@ -12,7 +12,7 @@ public class Joystick : MonoBehaviour {
     public int health = 3;
     
 
-    private Rigidbody2D rb;
+    private Rigidbody rb;
     private float moveH;
     private float moveV;
     private Vector2 movement;
@@ -51,7 +51,7 @@ public class Joystick : MonoBehaviour {
     void Start () {
         isPl1Dead = false;
         Time.timeScale = 1f;
-        rb = gameObject.GetComponent<Rigidbody2D>();
+        rb = gameObject.GetComponent<Rigidbody>();
         superShotTimer = 0;
 
         Debug.Log(PlayerPrefs.GetString("Joystick1Jump"));
